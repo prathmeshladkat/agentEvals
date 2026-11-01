@@ -1,0 +1,7 @@
+CALL_ROOM = "call.room"
+VERSION_PROMPT = "version.prompt"
+VERSION_MODEL = "version.model"
+VERSION_STT = "version.stt"
+VERSION_TTS = "version.tts"
+FAULT_INJECTED = "fault.injected"
+RUN_ID = "run.id"
