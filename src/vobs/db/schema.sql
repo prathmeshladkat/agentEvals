@@ -45,8 +45,18 @@ CREATE TABLE IF NOT EXISTS transcript_turns (
     e2e_latency  DOUBLE PRECISION
 );
 
+CREATE TABLE IF NOT EXISTS pii_audit (
+    id          BIGSERIAL PRIMARY KEY,
+    trace_id    TEXT NOT NULL,
+    span_id     TEXT NOT NULL,
+    pii_type    TEXT NOT NULL,
+    count       INTEGER NOT NULL,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 CREATE INDEX IF NOT EXISTS idx_spans_trace  ON spans(trace_id);
 CREATE INDEX IF NOT EXISTS idx_spans_name   ON spans(name, start_time);
 CREATE INDEX IF NOT EXISTS idx_events_trace ON span_events(trace_id);
 CREATE INDEX IF NOT EXISTS idx_traces_start ON traces(started_at);
 CREATE INDEX IF NOT EXISTS idx_transcript_trace ON transcript_turns(trace_id, turn_time);
+CREATE INDEX IF NOT EXISTS idx_pii_audit_trace ON pii_audit(trace_id);

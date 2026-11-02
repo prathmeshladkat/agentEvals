@@ -9,6 +9,7 @@ from psycopg_pool import ConnectionPool
 from pydantic import BaseModel, Field
 
 from vobs.tracing import attrs as A
+from vobs.redaction.redactor import redact_obj
 
 load_dotenv()
 pool = ConnectionPool(os.environ["DATABASE_URL"], min_size=1, max_size=5, open=False)
@@ -84,6 +85,17 @@ def ingest(batch: list[SpanIn]):
                 )
 
             # TODO(pii): redaction goes here, before anything is stored.
+            s.attributes, found = redact_obj(s.attributes)
+            for e in s.events:
+                e.attributes, more = redact_obj(e.attributes)
+                for k, n in more.items():
+                    found[k] = found.get(k, 0) + n
+            for pii_type, n in found.items():
+                conn.execute(
+                    "INSERT INTO pii_audit (trace_id, span_id, pii_type, count) "
+                    "VALUES (%s,%s,%s,%s)",
+                    (s.trace_id, s.span_id, pii_type, n),
+                )
             cur = conn.execute(
                 "INSERT INTO spans (span_id, trace_id, parent_span_id, name, start_time, "
                 "end_time, duration_ms, status, attributes) "

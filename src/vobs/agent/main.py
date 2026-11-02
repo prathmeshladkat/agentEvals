@@ -57,7 +57,7 @@ async def entrypoint(ctx: agents.JobContext):
     session.on("metrics_collected", on_metrics)
 
     await session.start(room=ctx.room, agent=ClinicAgent())
-    await session.generate_reply(instructions="Greet the caller and ask how you can help.")
+    await session.say("Hello! Thanks for calling the clinic. How can I help you today?")
 
 
 

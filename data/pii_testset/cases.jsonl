@@ -1,0 +1,15 @@
+{"text": "My phone number is 98765 43210.", "pii": [{"type": "PHONE", "value": "98765 43210"}]}
+{"text": "You can reach me at +91 9876543210 anytime.", "pii": [{"type": "PHONE", "value": "9876543210"}]}
+{"text": "It's nine eight seven six five four three two one zero.", "pii": [{"type": "PHONE", "value": "nine eight seven six five four three two one zero"}]}
+{"text": "Book it under 9 8 7 6 5 4 3 2 1 0 please.", "pii": [{"type": "PHONE", "value": "9 8 7 6 5 4 3 2 1 0"}]}
+{"text": "My email is priya.sharma@example.com.", "pii": [{"type": "EMAIL", "value": "priya.sharma@example.com"}]}
+{"text": "My name is Rahul Verma and I want to book.", "pii": [{"type": "NAME", "value": "Rahul Verma"}]}
+{"text": "Hi, this is Anita, I need to cancel.", "pii": [{"type": "NAME", "value": "Anita"}]}
+{"text": "I'm Suresh, calling about tomorrow.", "pii": [{"type": "NAME", "value": "Suresh"}]}
+{"text": "Please book it for Meera Iyer.", "pii": [{"type": "NAME", "value": "Meera Iyer"}]}
+{"text": "The appointment is for my son Arjun.", "pii": [{"type": "NAME", "value": "Arjun"}]}
+{"text": "I want to book an appointment for tomorrow at eleven AM.", "pii": []}
+{"text": "Do you have a slot on 3 November?", "pii": []}
+{"text": "My booking ID is 4821.", "pii": []}
+{"text": "I can come at 10 30 or 11 15.", "pii": []}
+{"text": "This is Monday's slot, right?", "pii": []}
