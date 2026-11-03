@@ -5,17 +5,13 @@ from livekit.plugins import deepgram, elevenlabs, groq, silero
 from livekit.agents.telemetry import set_tracer_provider
 from vobs.tracing.setup import setup_tracing
 from vobs.tracing.adapters.livekit import normalize
+from vobs.agent.clinic_agent import ClinicAgent
+from vobs.agent.prompts import PROMPT_VERSION
 
 
 
 load_dotenv()
 
-
-class ClinicAgent(Agent):
-    def __init__(self):
-        super().__init__(
-            instructions="You are a friendly receptionist for a small clinic. Keep replies to one or two short sentences."
-        )
 
 
 server = agents.AgentServer()

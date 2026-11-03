@@ -1,7 +1,7 @@
 import json
 import pathlib
 
-from vobs.redaction.redactor import redact
+from vobs.redaction.redactor import redact, redact_obj
 
 cases = [json.loads(l) for l in pathlib.Path("data/pii_testset/cases.jsonl").read_text().splitlines() if l.strip()]
 
@@ -10,7 +10,7 @@ clean_total = clean_changed = 0
 leaks, false_alarms = [], []
 
 for c in cases:
-    out = redact(c["text"]).text
+    out = redact_obj(c["text"])[0]
     for p in c["pii"]:
         expected += 1
         if p["value"] not in out:

@@ -50,3 +50,6 @@ dev = [
     "ruff>=0.17.3",
 ]
 
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"
+

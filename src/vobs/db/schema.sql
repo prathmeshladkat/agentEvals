@@ -60,3 +60,4 @@ CREATE INDEX IF NOT EXISTS idx_events_trace ON span_events(trace_id);
 CREATE INDEX IF NOT EXISTS idx_traces_start ON traces(started_at);
 CREATE INDEX IF NOT EXISTS idx_transcript_trace ON transcript_turns(trace_id, turn_time);
 CREATE INDEX IF NOT EXISTS idx_pii_audit_trace ON pii_audit(trace_id);
+ALTER TABLE traces ADD COLUMN IF NOT EXISTS outcome_reason TEXT;

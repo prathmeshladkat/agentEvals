@@ -13,3 +13,6 @@
 {"text": "My booking ID is 4821.", "pii": []}
 {"text": "I can come at 10 30 or 11 15.", "pii": []}
 {"text": "This is Monday's slot, right?", "pii": []}
+{"text": "{\"name\": \"Rahul\", \"phone\": \"8788457609\", \"slot\": \"2026-11-03 10:00\"}", "pii": [{"type": "NAME", "value": "Rahul"}, {"type": "PHONE", "value": "8788457609"}]}
+{"text": "{\"date\": \"2026-11-03\"}", "pii": []}
+{"text": "Your appointment is on 2026-11-03 10:00.", "pii": []}
