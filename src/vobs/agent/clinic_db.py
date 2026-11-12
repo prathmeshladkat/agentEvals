@@ -92,3 +92,12 @@ def lookup(phone: str) -> list[tuple[int, str, dt.datetime]]:
             "WHERE phone = %s AND status = 'confirmed' ORDER BY slot_time",
             (digits_only(phone),),
         ).fetchall()
+
+def seed(bookings: list[dict]) -> None:
+    """Insert starting bookings for a scenario (after reset)."""
+    with _connect() as conn:
+        for b in bookings:
+            conn.execute(
+                "INSERT INTO bookings (name, phone, slot_time) VALUES (%s, %s, %s)",
+                (b["name"], digits_only(b["phone"]), dt.datetime.strptime(b["slot"], "%Y-%m-%d %H:%M")),
+            )

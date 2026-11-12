@@ -8,8 +8,8 @@ from vobs.agent.prompts import build_prompt
 
 
 class ClinicAgent(Agent):
-    def __init__(self):
-        super().__init__(instructions=build_prompt(dt.date.today()))
+    def __init__(self, inputs: dict | None = None):
+        super().__init__(instructions=build_prompt(dt.date.today(), **(inputs or {})))
 
     @function_tool()
     async def check_availability(self, date: str) -> str:

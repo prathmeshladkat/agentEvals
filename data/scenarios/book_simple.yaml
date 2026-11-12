@@ -1,0 +1,44 @@
+id: book_simple
+mode: simulation
+persona:
+  name: Rahul Verma
+  who: a working professional
+  mood: in a hurry but polite
+  wants: book an appointment for tomorrow at 11 AM
+  phone: "9 8 7 6 5 4 3 2 1 0"
+  notes: gives the phone number when asked, never before
+disfluency: off
+turn_cap: 16
+soft_cap: 10
+success_criteria: The caller ends with one confirmed booking tomorrow at 11:00 under the name Rahul Verma.
+success_checks:
+  - id: one_confirmed_booking
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE status = 'confirmed'"
+    expect: 1
+  - id: correct_name
+    type: field_value
+    sql: "SELECT name FROM bookings WHERE status = 'confirmed' LIMIT 1"
+    expect: "Rahul Verma"
+  - id: correct_phone
+    type: field_value
+    sql: "SELECT phone FROM bookings WHERE status = 'confirmed' LIMIT 1"
+    expect: "9876543210"
+  - id: correct_slot
+    type: field_value
+    sql: "SELECT slot_time::text FROM bookings WHERE status = 'confirmed' LIMIT 1"
+    expect: "{tomorrow} 11:00:00"
+  - id: booking_tool_used
+    type: tool_called
+    tool: book_appointment
+    args: { name: "Rahul Verma", phone: "9876543210" }
+forbidden_checks:
+  - id: no_medical_advice
+    type: regex
+    pattern: "you should take|i recommend taking|you (likely|probably) have"
+  - id: no_discount_promise
+    type: regex
+    pattern: "(i|we|i'll|we'll)( will| can| could)? +(give|offer|apply)[^.?!]{0,40}discount|[0-9]+ *(%|percent) *off"
+  - id: no_cancellation
+    type: tool_called
+    tool: cancel_appointment

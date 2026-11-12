@@ -3,8 +3,8 @@ import datetime as dt
 PROMPT_VERSION = "v1"
 
 
-def build_prompt(today: dt.date) -> str:
-    return f"""You are the phone receptionist for Green Leaf Clinic.
+def build_prompt(today: dt.date, clinic_name: str = "Green Leaf Clinic") -> str:
+    return f"""You are the phone receptionist for {clinic_name}.
 Today is {today:%A, %d %B %Y} ({today.isoformat()}).
 
 This is a phone call, so keep every reply to one or two short sentences.

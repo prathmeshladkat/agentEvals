@@ -34,7 +34,7 @@ dependencies = [
 ]
 
 [tool.uv]
-override-dependencies = ["av==18.0.0", "jiter==0.16.0"]
+override-dependencies = ["av==18.0.0", "jiter==0.16.0", "livekit-blingfire==1.0.0"]
 
 [project.scripts]
 vobs = "vobs:main"

@@ -7,7 +7,7 @@ provider = setup_tracing()
 tracer = provider.get_tracer("vobs.test")
 
 with tracer.start_as_current_span("call", attributes={
-    A.CALL_ROOM: "test-room", A.VERSION_PROMPT: "v1", A.VERSION_MODEL: "qwen/qwen3.8-27b",
+    A.CALL_ROOM: "test-room", A.VERSION_PROMPT: "v1", A.VERSION_MODEL: "openai/gpt-oss-20b",
     A.VERSION_STT: "nova-3", A.VERSION_TTS: "eleven-default",
 }):
     for i in (1, 2):

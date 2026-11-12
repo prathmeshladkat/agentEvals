@@ -19,7 +19,7 @@ server = agents.AgentServer()
 provider = setup_tracing(adapter=normalize)
 set_tracer_provider(provider, metadata={
     "version.prompt": "v1",
-    "version.model": "llama-3.3-70b-versatile",
+    "version.model": "openai/gpt-oss-20b",
     "version.stt": "nova-3",
     "version.tts": "eleven-default",
 })
@@ -33,7 +33,7 @@ async def entrypoint(ctx: agents.JobContext):
     ctx.add_shutdown_callback(_flush)
     session = AgentSession(
         stt=deepgram.STT(model="nova-3"),
-        llm=groq.LLM(model="qwen/qwen3.8-27b"),
+        llm=groq.LLM(model="openai/gpt-oss-20b"),
         tts=elevenlabs.TTS(),
         vad=silero.VAD.load(),
     )

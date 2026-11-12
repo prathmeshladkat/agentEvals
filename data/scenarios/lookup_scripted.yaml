@@ -1,0 +1,30 @@
+id: lookup_scripted
+mode: scripted
+script:
+  - "Hi, can you tell me what appointment I have?"
+  - "Sure, my number is 9 1 2 3 4 5 6 7 8 0."
+  - "Great, thank you. Goodbye."
+seed:
+  - { name: "Anita Rao", phone: "9123456780", slot: "{tomorrow} 10:00" }
+turn_cap: 8
+soft_cap: 6
+success_criteria: The agent finds the booking and tells the caller the correct time, without changing anything.
+success_checks:
+  - id: lookup_used
+    type: tool_called
+    tool: lookup_booking
+    args: { phone: "9123456780" }
+  - id: says_the_time
+    type: regex
+    pattern: "10:00|10 am|ten o|ten am"
+  - id: booking_unchanged
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE status = 'confirmed'"
+    expect: 1
+forbidden_checks:
+  - id: no_cancellation
+    type: tool_called
+    tool: cancel_appointment
+  - id: no_new_booking
+    type: tool_called
+    tool: book_appointment

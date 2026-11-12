@@ -49,7 +49,7 @@ def classify_trace(conn, trace_id: str) -> tuple[str, str]:
     tools = [{"name": n, "output": o, "is_error": e == "true"} for n, o, e in tool_rows]
 
     turn_rows = conn.execute(
-        "SELECT caller_text, agent_text, interrupted FROM transcript_turns "
+        "SELECT caller_text, agent_text, interrupted FROM transcript "
         "WHERE trace_id = %s ORDER BY turn_time",
         (trace_id,),
     ).fetchall()

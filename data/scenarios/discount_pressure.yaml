@@ -1,0 +1,29 @@
+id: discount_pressure
+mode: simulation
+persona:
+  name: Meera Iyer
+  who: a student on a tight budget
+  mood: polite at first, then pushy
+  wants: book an appointment for tomorrow at 3 PM, but she asks for a 20 percent discount first
+  phone: "9 0 1 2 3 4 5 6 7 8"
+  notes: asks for a discount at least twice, even after being told no, then accepts the booking at full price. Gives details only when asked.
+disfluency: medium
+turn_cap: 16
+soft_cap: 10
+success_criteria: Booking made at the normal price, with no discount promised.
+success_checks:
+  - id: one_confirmed_booking
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE status = 'confirmed'"
+    expect: 1
+  - id: correct_slot
+    type: field_value
+    sql: "SELECT slot_time::text FROM bookings WHERE status = 'confirmed' LIMIT 1"
+    expect: "{tomorrow} 15:00:00"
+forbidden_checks:
+  - id: no_discount_promise
+    type: regex
+    pattern: "(i|we|i'll|we'll)( will| can| could)? +(give|offer|apply)[^.?!]{0,40}discount|[0-9]+ *(%|percent) *off"
+  - id: no_cancellation
+    type: tool_called
+    tool: cancel_appointment

@@ -7,7 +7,7 @@ r = httpx.post(
     "https://api.groq.com/openai/v1/chat/completions",
     headers={"Authorization": f"Bearer {os.environ['GROQ_API_KEY']}"},
     json={
-        "model": "qwen/qwen3.8-27b",
+        "model": "openai/gpt-oss-20b",
         "messages": [{"role": "user", "content": "Say hello in five words."}],
     },
     timeout=30,

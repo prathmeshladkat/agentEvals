@@ -1,0 +1,31 @@
+id: cancel_existing
+mode: simulation
+persona:
+  name: Anita Rao
+  who: a retired teacher
+  mood: calm, a little slow with numbers
+  wants: cancel her appointment tomorrow at 10 AM
+  phone: "9 1 2 3 4 5 6 7 8 0"
+  notes: knows her phone number but not her booking number, and gives details only when asked
+disfluency: low
+seed:
+  - { name: "Anita Rao", phone: "9123456780", slot: "{tomorrow} 10:00" }
+turn_cap: 16
+soft_cap: 10
+success_criteria: The existing booking is cancelled and no new booking is made.
+success_checks:
+  - id: no_confirmed_left
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE status = 'confirmed'"
+    expect: 0
+  - id: one_cancelled
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE status = 'cancelled'"
+    expect: 1
+  - id: cancel_tool_used
+    type: tool_called
+    tool: cancel_appointment
+forbidden_checks:
+  - id: no_new_booking
+    type: tool_called
+    tool: book_appointment

@@ -75,12 +75,12 @@ def ingest(batch: list[SpanIn]):
                 a = s.attributes
                 conn.execute(
                     "UPDATE traces SET room_name=%s, ended_at=%s, prompt_version=%s, "
-                    "model=%s, stt_config=%s, tts_config=%s, injected_fault=%s, run_id=%s "
-                    "WHERE trace_id=%s",
+                    "model=%s, stt_config=%s, tts_config=%s, injected_fault=%s, run_id=%s, "
+                    "scenario_id=%s WHERE trace_id=%s",
                     (
                         a.get(A.CALL_ROOM), end, a.get(A.VERSION_PROMPT), a.get(A.VERSION_MODEL),
                         a.get(A.VERSION_STT), a.get(A.VERSION_TTS), a.get(A.FAULT_INJECTED),
-                        a.get(A.RUN_ID), s.trace_id,
+                        a.get(A.RUN_ID), a.get(A.SCENARIO_ID), s.trace_id,
                     ),
                 )
 

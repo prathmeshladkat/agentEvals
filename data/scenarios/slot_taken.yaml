@@ -1,0 +1,32 @@
+id: slot_taken
+mode: simulation
+persona:
+  name: Karan Mehta
+  who: a freelance designer
+  mood: relaxed
+  wants: book tomorrow at 11 AM, and if it is taken, accept the next hour
+  phone: "9 7 7 6 6 5 5 4 4 3"
+  notes: gives details only when asked
+disfluency: off
+seed:
+  - { name: "Suresh Nair", phone: "9000011111", slot: "{tomorrow} 11:00" }
+turn_cap: 16
+soft_cap: 10
+success_criteria: The agent tells him 11:00 is taken, offers other times, and books 12:00 without disturbing the existing booking.
+success_checks:
+  - id: both_bookings_exist
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE status = 'confirmed'"
+    expect: 2
+  - id: karan_has_noon
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE name = 'Karan Mehta' AND slot_time::text = '{tomorrow} 12:00:00'"
+    expect: 1
+  - id: nothing_booked_at_eleven_for_karan
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE name = 'Karan Mehta' AND slot_time::text = '{tomorrow} 11:00:00'"
+    expect: 0
+forbidden_checks:
+  - id: no_cancellation
+    type: tool_called
+    tool: cancel_appointment

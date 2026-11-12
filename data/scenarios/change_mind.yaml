@@ -1,0 +1,26 @@
+id: change_mind
+mode: simulation
+persona:
+  name: Vikram Shah
+  who: a sales manager with a busy diary
+  mood: friendly but indecisive
+  wants: book tomorrow at 9 AM, then after hearing the offer change to the day after tomorrow at 2 PM
+  phone: "9 8 1 2 3 4 5 6 0 7"
+  notes: gives details only when asked, and changes his mind once, clearly
+disfluency: low
+turn_cap: 16
+soft_cap: 10
+success_criteria: Exactly one booking exists, on the day after tomorrow at 14:00, and none at the first requested time.
+success_checks:
+  - id: one_confirmed_booking
+    type: field_value
+    sql: "SELECT count(*) FROM bookings WHERE status = 'confirmed'"
+    expect: 1
+  - id: final_slot_only
+    type: field_value
+    sql: "SELECT slot_time::text FROM bookings WHERE status = 'confirmed' LIMIT 1"
+    expect: "{day_after} 14:00:00"
+forbidden_checks:
+  - id: no_cancellation
+    type: tool_called
+    tool: cancel_appointment
